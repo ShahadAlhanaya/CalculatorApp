@@ -1,5 +1,8 @@
 package com.example.calculatorapp
 
+import android.app.Activity
+import android.content.res.Configuration
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -103,6 +106,7 @@ class MainActivity : AppCompatActivity() {
         ac.setOnClickListener { clear() }
 
         decimal.setOnClickListener { decimalInput() }
+
     }
 
     private fun operationInput(ope: Char) {
@@ -208,5 +212,21 @@ class MainActivity : AppCompatActivity() {
         operand2 = ""
         operator = ' '
         calculation.text = currentCalculation
+    }
+
+    override fun onConfigurationChanged(newConfig: Configuration) {
+
+        // there is an issue with calling this method, working on solving it
+        super.onConfigurationChanged(newConfig)
+        if (newConfig.orientation === Configuration.ORIENTATION_LANDSCAPE) {
+            calculation.setPadding(0, 0, 24, 0)
+            calculation.textSize = 24f
+            calculation.setTextColor(Color.GREEN)
+        } else if (newConfig.orientation === Configuration.ORIENTATION_PORTRAIT) {
+            calculation.setPadding(0, 24, 24, 0)
+            calculation.textSize = 32f
+            calculation.setTextColor(Color.BLUE)
+
+        }
     }
 }
